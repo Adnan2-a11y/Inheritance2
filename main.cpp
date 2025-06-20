@@ -1,80 +1,85 @@
 #include <iostream>
 using namespace std;
-class Base{
-    public:
-    int pub=3;
+/*class Base
+{
+  public:
+  std::string name;
+  //int Age;
+  void getAge(int a){Age=a;};
+  protected:
+  int Age;
 
-    protected:
-    int pro=4;
-
-    private:
-    int pri=5;
+  private:
+  char city[100];
+  
 };
-
 class PublicDerived:public Base{
-      public:
-      void show()
-      {
-        cout<<"Public Inheritences\n"<<endl;
-        cout<<"Public Value:"<<pub<<endl;
-        cout<<"Protected Value:"<<pro<<endl;
-        //cout<<"Private Value:"<<pri<<endl;
-      }
+  public:
+  void show()
+  {
+      cout<<"Public Inheritance"<<endl;
+      cout<<"Name:"<<name<<endl;
+      cout<<"Age:"<<Age<<endl;
+      //cout<<"City:"<<city<<endl; //Not Accessible
+  }
 };
-class ProtectedDerived:public Base{
-      public:
-      void show()
-      {
-        cout<<"Protected Inheritences\n"<<endl;
-        cout<<"Public Value:"<<pub<<endl;
-        cout<<"Protected Value:"<<pro<<endl;
-        //cout<<"Private Value:"<<pri<<endl;
-      }
+
+class ProtectedDerived:protected Base{
+  public:
+  void show()
+  {
+      cout<<"Protected Inheritance"<<endl;
+      cout<<"Name:"<<name<<endl;
+      cout<<"Age:"<<Age<<endl;
+      //cout<<"City:"<<city<<endl; //Not Accessible
+  }
 };
-class PrivateDerived:public Base{
-      public:
-      void show()
-      {
-        cout<<"Private Inheritences\n"<<endl;
-        cout<<"Public Value:"<<pub<<endl;
-        cout<<"Protected Value:"<<pro<<endl;
-        //cout<<"Private Value:"<<pri<<endl;
-      }
-};
+
+class PrivateDerived:private Base{
+  public:
+  void show()
+  {
+      cout<<"Private Inheritance"<<endl;
+      cout<<"Name:"<<name<<endl;
+      cout<<"Age:"<<Age<<endl;
+      //cout<<"City:"<<city<<endl; //Not Accessible
+  }
+};*/
 
 class A{
-    public:
-    int a;
+   public:
+   int a;
+   
 };
-class B:virtual public A{
-    public:
-    int b;
-};
-class C:virtual public A{
-    public:
-    int c;
+class B:virtual public A
+{
+  public:
+  int b;
 };
 
-class D:virtual public B,virtual public C{
-    public:
-    int d;
+class C:virtual public A
+{
+  public:
+  int c;
 };
+
+class D:virtual public B,virtual public C
+{
+  public:
+  int d;
+};
+
 int main() {
-    //PrivateDerived obj;
-    //obj.show();
-
     D obj;
-    obj.a=10;
-    obj.b=20;
-
-    obj.b=30;
-    obj.c=40;
-    obj.d=50;
-
-    cout<<"a:"<<obj.a<<endl;
-    cout<<"b:"<<obj.b<<endl;
-    cout<<"c:"<<obj.c<<endl;
-    cout<<"d:"<<obj.d<<endl;
-    //cout<<"a:"<<obj.a;
+    B obj1;
+    obj.a = 10; // Accessing A's member through D
+    obj.b = 20; // Accessing B's member through D
+    obj.c = 30; // Accessing C's member through D
+    obj.d = 40; // Accessing D's member
+    cout << "a: " << obj.a << endl; // Output: a: 10
+    cout << "b: " << obj.b << endl; // Output: b: 20
+    cout << "c: " << obj.c << endl; // Output: c: 30
+    cout << "d: " << obj.d << endl; // Output: d: 40
+    // Note: In this case, there is no ambiguity because D inherits from B and C,
     return 0;
 }
